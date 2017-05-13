@@ -42,7 +42,6 @@ class Env(object):
                 if e.errno not in [errno.EPERM, errno.ESRCH]:
 
 
-
 class Procfile(object):
     """A data structure representing a Procfile"""
 
