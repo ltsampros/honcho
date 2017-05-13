@@ -7,10 +7,6 @@ import os
 import re
 import signal
 
-from . import compat
-
-if compat.ON_WINDOWS:
-    import ctypes
 
 
 PROCFILE_LINE = re.compile(r'^([A-Za-z0-9_]+):\s*(.+)$')
@@ -19,7 +15,6 @@ PROCFILE_LINE = re.compile(r'^([A-Za-z0-9_]+):\s*(.+)$')
 class Env(object):
 
     def now(self):
-        return datetime.datetime.now()
 
     if compat.ON_WINDOWS:
         def terminate(self, pid):
@@ -43,10 +38,9 @@ class Env(object):
     else:
         def kill(self, pid):
             try:
-                os.killpg(pid, signal.SIGKILL)
             except OSError as e:
                 if e.errno not in [errno.EPERM, errno.ESRCH]:
-                    raise
+
 
 
 class Procfile(object):
